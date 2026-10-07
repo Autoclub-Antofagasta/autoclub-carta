@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoClub Carta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F0E6;
+    --panel: #FBF8F1;
+    --ink: #2B2118;
+    --navy: #1A1A78;
+    --navy-deep: #12124f;
+    --rule: #D8D0BC;
+    --muted: #7C7160;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
+    margin: 0;
+  }
+
+  .page {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 20px 64px;
+  }
+
+  /* ---- sticky nav ---- */
+  .nav-wrap {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(245, 240, 230, 0.94);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav {
+    max-width: 680px;
+    margin: 0 auto;
+    display: flex;
+    gap: 6px;
+    padding: 10px 14px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav a {
+    flex: 0 0 auto;
+    font-family: 'EB Garamond', serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--navy);
+    text-decoration: none;
+    padding: 7px 13px;
+    border: 1px solid var(--navy);
+    border-radius: 999px;
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s;
+  }
+  .nav a.active, .nav a:hover {
+    background: var(--navy);
+    color: var(--cream);
+  }
+
+  /* ---- hero ---- */
+  .hero {
+    text-align: center;
+    padding: 40px 0 28px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero .brand {
+    font-size: 2.6rem;
+    font-weight: 600;
+    color: var(--navy);
+    letter-spacing: 0.01em;
+    margin: 0;
+  }
+  .hero .place {
+    font-size: 0.85rem;
+    letter-spacing: 0.32em;
+    color: var(--navy);
+    margin: 2px 0 0;
+    font-weight: 500;
+  }
+  .hero hr {
+    width: 64px;
+    border: none;
+    border-top: 1px solid var(--navy);
+    margin: 18px auto;
+  }
+  .hero .tagline {
+    font-style: italic;
+    color: var(--muted);
+    font-size: 1.05rem;
+    margin: 0;
+  }
+
+  /* ---- section ---- */
+  .section {
+    padding-top: 44px;
+    scroll-margin-top: 58px;
+  }
+  .section-head {
+    font-size: 1.5rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--navy);
+    font-weight: 600;
+    margin: 0 0 4px;
+  }
+  .section-sub {
+    font-style: italic;
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin: 0 0 18px;
+  }
+  .section > hr.head-rule {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 10px 0 22px;
+  }
+
+  .subsection { margin-bottom: 30px; }
+  .subhead {
+    font-size: 1.02rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--navy);
+    font-weight: 600;
+    margin: 0 0 14px;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 8px;
+  }
+  .subhead .tag {
+    text-transform: none;
+    letter-spacing: 0;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  .kicker {
+    font-style: italic;
+    color: var(--muted);
+    margin: -8px 0 20px;
+  }
+
+  /* ---- dish row ---- */
+  .dish {
+    padding: 11px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .dish:last-child { border-bottom: none; }
+  .dish-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .dish-name {
+    flex: 1;
+    font-size: 1.08rem;
+  }
+  .dish-price {
+    font-variant-numeric: tabular-nums;
+    color: var(--navy);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .dish-price { font-size: 1.02rem; }
+  .desc {
+    font-style: italic;
+    color: var(--muted);
+    font-size: 0.88rem;
+    margin: 4px 0 0;
+    line-height: 1.4;
+  }
+
+  /* ---- spirit grid (compact, no description) ---- */
+  .spirit-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 20px;
+  }
+  .spirit {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 0.96rem;
+  }
+  .spirit-price {
+    font-variant-numeric: tabular-nums;
+    color: var(--navy);
+    white-space: nowrap;
+  }
+
+  .varietal { margin-bottom: 16px; }
+  .varietal h4 {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--ink);
+    font-size: 0.92rem;
+    margin: 0 0 6px;
+  }
+
+  footer {
+    text-align: center;
+    padding-top: 48px;
+    color: var(--muted);
+    font-style: italic;
+    font-size: 0.85rem;
+  }
+  footer .diamond { color: var(--navy); margin: 0 10px; }
+
+  @media (max-width: 420px) {
+    .spirit-grid { grid-template-columns: 1fr; column-gap: 0; }
+    .hero .brand { font-size: 2.1rem; }
+  }
+</style>
+</head>
+<body>
+
+
+<div class="nav-wrap">
+  <nav class="nav" id="nav">
+    <a href="#bebidas" data-id="bebidas">Bebidas</a>
+    <a href="#picoteos" data-id="picoteos">Picoteos</a>
+    <a href="#sandwiches" data-id="sandwiches">Sándwiches</a>
+    <a href="#ninos" data-id="ninos">Menú Niños</a>
+    <a href="#ensaladas" data-id="ensaladas">Ensaladas</a>
+    <a href="#cocteles" data-id="cocteles">Cócteles y más</a>
+  </nav>
+</div>
+
+<div class="page">
+
+  <div class="hero">
+    <p class="brand">AutoClub</p>
+    <p class="place">ANTOFAGASTA</p>
+    <hr>
+    <p class="tagline">Carta</p>
+  </div>
+
+  <section class="section" id="bebidas">
+    <h2 class="section-head">Bebidas y Refrescos</h2>
+    <hr class="head-rule">
+    <div class="subsection"><h3 class="subhead">Bebidas y Jugos</h3><div class="dish">
+  <div class="dish-head"><span class="dish-name">Bebida</span><span class="dish-price">$1.500</span></div>
+  
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Redbull</span><span class="dish-price">$2.500</span></div>
+  
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Limonada</span><span class="dish-price">$3.500</span></div>
+  
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Jugo Natural</span><span class="dish-price">$3.900</span></div>
+  
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Limonada Menta Jengibre</span><span class="dish-price">$3.900</span></div>
+  
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Agua con o sin Gas</span><span class="dish-price">$1.500</span></div>
+  
+</div></div><div class="subsection"><h3 class="subhead">Cerveza en Botella</h3><div class="spirit-grid"><div class="spirit"><span>Kunstmann Torobayo</span><span class="spirit-price">$3.500</span></div><div class="spirit"><span>Kunstmann Gran Torobayo</span><span class="spirit-price">$4.900</span></div><div class="spirit"><span>Budweiser</span><span class="spirit-price">$2.500</span></div><div class="spirit"><span>Heineken</span><span class="spirit-price">$2.500</span></div><div class="spirit"><span>Heineken Sin Alcohol</span><span class="spirit-price">$2.600</span></div><div class="spirit"><span>Corona</span><span class="spirit-price">$2.500</span></div><div class="spirit"><span>Austral Calafate</span><span class="spirit-price">$3.500</span></div><div class="spirit"><span>Erdinger Weissbier</span><span class="spirit-price">$3.900</span></div><div class="spirit"><span>Erdinger Dunkel</span><span class="spirit-price">$4.800</span></div><div class="spirit"><span>Erdinger Sin Alcohol</span><span class="spirit-price">$4.000</span></div></div></div><div class="subsection"><h3 class="subhead">Schop</h3><div class="spirit-grid"><div class="spirit"><span>Schop Austral Calafate</span><span class="spirit-price">$4.500</span></div><div class="spirit"><span>Schop Heineken</span><span class="spirit-price">$4.200</span></div><div class="spirit"><span>Schop Kunstmann Torobayo</span><span class="spirit-price">$4.500</span></div></div></div>
+  </section>
+
+  <section class="section" id="picoteos">
+    <h2 class="section-head">Entradas, Tablas y Picoteos</h2>
+    <hr class="head-rule">
+    <div class="dish">
+  <div class="dish-head"><span class="dish-name">Pulpo al Olivo</span><span class="dish-price">$11.500</span></div>
+  <p class="desc">Pulpo laminado marinado en jugo de limón de Pica, toques de rocoto, cebolla morada, cilantro, coronada con palta, mix de tomates Cherry y chalaquita tradicional.</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Camarones Apanados</span><span class="dish-price">$12.900</span></div>
+  <p class="desc">Camarones apanados en panko, servido con guacamole y crema ácida.</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Ostiones a la Parmesana</span><span class="dish-price">$13.900</span></div>
+  <p class="desc">8 unidades de exquisitos y tiernos ostiones, rellenos de nuestra crema parmesana, acompañados de salsa verde y gajos de limón.</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Ceviche Tradicional Peruano</span><span class="dish-price">$11.900</span></div>
+  <p class="desc">Trozos de pescado blanco del día, cebolla morada y cilantro, macerado con limón y en leche de tigre, acompañado de camote glaseado y tostadas</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Ceviche de Salmón</span><span class="dish-price">$11.900</span></div>
+  <p class="desc">Trozos de salmón, palta y cebolla morada, macerado con limón y leche de tigre, acompañado de tostadas</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Trilogía Marina</span><span class="dish-price">$17.500</span></div>
+  <p class="desc">Ceviche peruano, camarones apanados y pulpo al olivo</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Tabla Auto Club</span><span class="dish-price">$19.900</span></div>
+  <p class="desc">Camarones y trozos de lomo liso salteados con pimentón y cebolla sobre cama de papas fritas caseras, acompañado de salsa brava.</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Chicken Strips</span><span class="dish-price">$9.900</span></div>
+  <p class="desc">Filetillos de pollo fritos estilo americano sobre cama de papas caseras, acompañados de salsa brava, crema ácida y salsa bbq</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Carpaccio de Carne</span><span class="dish-price">$10.900</span></div>
+  <p class="desc">Láminas de carne aderezadas con salsa de mostaza, acompañadas por alcaparras, queso parmesano, rúcula y tostadas</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Carpaccio de Salmón</span><span class="dish-price">$10.900</span></div>
+  <p class="desc">Láminas de salmón aderezadas con limón y aceite de oliva, acompañadas por alcaparras, queso parmesano, rúcula y tostadas</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Tártaro de Carne</span><span class="dish-price">$9.900</span></div>
+  <p class="desc">Asiento picado a cuchillo, cebolla, alcaparras, cilantro, ají verde y mostaza antigua, aderezado con jugo de limón. Acompañado de tostadas.</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Papas Cheddar</span><span class="dish-price">$8.900</span></div>
+  <p class="desc">Papas fritas caseras, con salsa de queso cheddar y tocino crispy</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Papas Fritas Chicas</span><span class="dish-price">$2.900</span></div>
+  
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Papas Fritas Grandes</span><span class="dish-price">$5.900</span></div>
+  
+</div>
+  </section>
+
+  <section class="section" id="sandwiches">
+    <h2 class="section-head">Sandwiches Tradicionales</h2>
+    <hr class="head-rule">
+    <p class="kicker">…en pan frica o molde</p><div class="subsection"><h3 class="subhead">Churrascos</h3><div class="dish">
+  <div class="dish-head"><span class="dish-name">Barros Luco</span><span class="dish-price">$7.900</span></div>
+  
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Churrasco Chacarero</span><span class="dish-price">$7.900</span></div>
+  
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Churrasco Italiano</span><span class="dish-price">$7.900</span></div>
+  
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Churrasco Dinámico</span><span class="dish-price">$7.900</span></div>
+  
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Churrasco Brasileño</span><span class="dish-price">$7.900</span></div>
+  
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Churrasco Completo</span><span class="dish-price">$7.900</span></div>
+  
+</div></div><div class="subsection"><h3 class="subhead">Hamburguesas</h3><div class="dish">
+  <div class="dish-head"><span class="dish-name">Hamburguesa Luco</span><span class="dish-price">$7.900</span></div>
+  
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Hamburguesa Chacarera</span><span class="dish-price">$7.900</span></div>
+  
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Hamburguesa Italiana</span><span class="dish-price">$7.900</span></div>
+  
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Hamburguesa Dinámica</span><span class="dish-price">$7.900</span></div>
+  
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Hamburguesa Brasileña</span><span class="dish-price">$7.900</span></div>
+  
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Hamburguesa Completa</span><span class="dish-price">$7.900</span></div>
+  
+</div></div><div class="subsection"><h3 class="subhead">Pollo</h3><div class="dish">
+  <div class="dish-head"><span class="dish-name">Pollo Luco</span><span class="dish-price">$7.500</span></div>
+  
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Pollo Chacarero</span><span class="dish-price">$7.500</span></div>
+  
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Pollo Italiano</span><span class="dish-price">$7.500</span></div>
+  
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Pollo Dinámico</span><span class="dish-price">$7.500</span></div>
+  
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Pollo Brasileño</span><span class="dish-price">$7.500</span></div>
+  
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Pollo Completo</span><span class="dish-price">$7.500</span></div>
+  
+</div></div><div class="subsection"><h3 class="subhead">Completos <span class="tag">estilo hot-dog</span></h3><div class="dish">
+  <div class="dish-head"><span class="dish-name">Completo Luco</span><span class="dish-price">$2.900</span></div>
+  
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Completo Chacarero</span><span class="dish-price">$3.200</span></div>
+  
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Completo Italiano</span><span class="dish-price">$3.200</span></div>
+  
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Completo Dinámico</span><span class="dish-price">$3.500</span></div>
+  
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Completo Brasileño</span><span class="dish-price">$3.500</span></div>
+  
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Completo Clásico</span><span class="dish-price">$3.500</span></div>
+  
+</div></div><div class="subsection"><h3 class="subhead">Nuestras Empanadas <span class="tag">3 unds fritas</span></h3><div class="dish">
+  <div class="dish-head"><span class="dish-name">Empanaditas de Queso Mantecoso</span><span class="dish-price">$3.900</span></div>
+  
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Emapanaditas de Camarón Queso</span><span class="dish-price">$4.500</span></div>
+  
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Empanaditas de Pulpo Queso</span><span class="dish-price">$4.500</span></div>
+  
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Empanaditas de Champiñón Queso</span><span class="dish-price">$4.200</span></div>
+  
+</div></div>
+  </section>
+
+  <section class="section" id="ninos">
+    <h2 class="section-head">Menú de Niños</h2>
+    <hr class="head-rule">
+    <p class="kicker">Hasta 14 años</p><div class="dish">
+  <div class="dish-head"><span class="dish-name">Spaghettis Alfredo</span><span class="dish-price">$5.500</span></div>
+  
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Chicken Strips con Espaghettis a la Crema</span><span class="dish-price">$5.500</span></div>
+  
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Mini Cheese Burger con Papas Fritas</span><span class="dish-price">$5.500</span></div>
+  
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Pollo a la Plancha con Arroz</span><span class="dish-price">$5.500</span></div>
+  
+</div>
+  </section>
+
+  <section class="section" id="ensaladas">
+    <h2 class="section-head">Ensaladas</h2>
+    <hr class="head-rule">
+    <div class="dish">
+  <div class="dish-head"><span class="dish-name">Ensalada César Pollo</span><span class="dish-price">$9.900</span></div>
+  <p class="desc">Mix de lechugas, pollo a la plancha, crutones, queso parmesano, tomates cocktail y el famoso dressing césar.</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Ensalada César Camarón</span><span class="dish-price">$10.900</span></div>
+  <p class="desc">Mix de lechugas, camarones salteados, crutones, queso parmesano, tomates cocktail y el famoso dressing césar.</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Ensalada Europea</span><span class="dish-price">$11.900</span></div>
+  <p class="desc">Mix de lechugas, jamón serrano, aceitunas, pimentón caramelizado y queso roquefort</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Ensalada Campestre</span><span class="dish-price">$10.900</span></div>
+  <p class="desc">Mix de lechugas, tomates cocktail, choclo, palmitos, palta y queso ranco</p>
+</div>
+  </section>
+
+  <section class="section" id="cocteles">
+    <h2 class="section-head">Cócteles y Bar</h2>
+    <p class="section-sub">Todo lo que queda para beber — cócteles, destilados, espumantes y vinos.</p>
+    <hr class="head-rule">
+    <div class="subsection"><h3 class="subhead">Cócteles de Siempre</h3><div class="dish">
+  <div class="dish-head"><span class="dish-name">Mojito Cubano</span><span class="dish-price">$6.600</span></div>
+  <p class="desc">Tradicional trago cubano, hierba buena fresca, azúcar, limón, hielo y ron blanco.</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Caipirinha</span><span class="dish-price">$6.500</span></div>
+  <p class="desc">Tradicional cóctel brasileño con base de limón, azúcar, cachaza y hielo para darle un toque refrescante a la bebida.</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Mojito Mango</span><span class="dish-price">$7.200</span></div>
+  <p class="desc">La fusión y la perfección de sabores: hierba buena, mango, azúcar, hielo frappé y ron blanco para darle frescura.</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Caipiroska</span><span class="dish-price">$6.500</span></div>
+  <p class="desc">Cóctel en base de limón, azúcar, vodka y hielo para darle un toque refrescante a la bebida.</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Mojito Maracuyá</span><span class="dish-price">$7.200</span></div>
+  <p class="desc">La fusión y la perfección de sabores: hierba buena, maracuyá, azúcar, hielo frappé y ron blanco para darle frescura.</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Tequila Margarita</span><span class="dish-price">$6.900</span></div>
+  <p class="desc">Un clásico de los clásicos para su aperitivo antes de su almuerzo o cena.</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Piña Colada</span><span class="dish-price">$6.900</span></div>
+  <p class="desc">Un cóctel suave, fresco y delicioso.</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Mojito Frambuesa</span><span class="dish-price">$7.200</span></div>
+  <p class="desc">La fusión y la perfección de sabores: hierba buena, frambuesa, azúcar, hielo frappé y ron blanco para darle frescura.</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Daiquiri Tradicional</span><span class="dish-price">$7.200</span></div>
+  <p class="desc">Lo mejor para tu verano, refrescante y suave, especial para ti.</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Mojito Putin</span><span class="dish-price">$6.600</span></div>
+  <p class="desc">El aroma diferente de la albahaca y el limón con azúcar sacan lo mejor del vodka; con el hielo se refresca una bebida muy agradable.</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Daiquiri de Frambuesa</span><span class="dish-price">$7.200</span></div>
+  <p class="desc">Lo mejor para tu verano, refrescante y suave, especial para ti.</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Pisco Sour</span><span class="dish-price">$3.500</span></div>
+  <p class="desc">Cóctel de pisco en base de limón, jarabe de goma y clara de huevo, más el hielo para refrescar lo mejor de lo mejor.</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Negroni</span><span class="dish-price">$9.900</span></div>
+  <p class="desc">Clásico cóctel en base vermut, campari y gin.</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Sour Catedral</span><span class="dish-price">$7.500</span></div>
+  <p class="desc">Elige el sour que quieras, en versión catedral.</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Campari Tónica</span><span class="dish-price">$7.900</span></div>
+  <p class="desc">Campari con agua tónica.</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Campari Spritz</span><span class="dish-price">$7.900</span></div>
+  <p class="desc">Campari con agua con gas.</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Mango Sour</span><span class="dish-price">$4.200</span></div>
+  <p class="desc">Cóctel de pisco en base de mango, jarabe de goma y clara de huevo, más el hielo para refrescar lo mejor de lo mejor.</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Aperol Spritz</span><span class="dish-price">$8.900</span></div>
+  <p class="desc">Aperol, espumante y agua mineral.</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Maracuyá Sour</span><span class="dish-price">$3.900</span></div>
+  <p class="desc">Cóctel de pisco en base de maracuyá, jarabe de goma y clara de huevo, más el hielo para refrescar lo mejor de lo mejor.</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Ramazzotti Spritz</span><span class="dish-price">$6.900</span></div>
+  <p class="desc">Ramazzotti, espumante y agua mineral.</p>
+</div><div class="dish">
+  <div class="dish-head"><span class="dish-name">Chardonnay Sour</span><span class="dish-price">$3.900</span></div>
+  <p class="desc">Espumante, limón, azúcar y hielo.</p>
+</div></div><div class="subsection"><h3 class="subhead">Piscos</h3><div class="spirit-grid"><div class="spirit"><span>Mistral 35</span><span class="spirit-price">$4.000</span></div><div class="spirit"><span>Mistral 40</span><span class="spirit-price">$5.500</span></div><div class="spirit"><span>Mistral Nobel</span><span class="spirit-price">$6.500</span></div><div class="spirit"><span>Horcón Quemado 35</span><span class="spirit-price">$5.000</span></div><div class="spirit"><span>Alto del Carmen 35</span><span class="spirit-price">$4.000</span></div><div class="spirit"><span>Alto del Carmen 40 Doble Destilado</span><span class="spirit-price">$5.000</span></div><div class="spirit"><span>Alto del Carmen 40 Envejecido</span><span class="spirit-price">$6.000</span></div></div></div><div class="subsection"><h3 class="subhead">Ron</h3><div class="spirit-grid"><div class="spirit"><span>Malibu</span><span class="spirit-price">$5.000</span></div><div class="spirit"><span>Havana Especial</span><span class="spirit-price">$5.000</span></div><div class="spirit"><span>Havana Reserva</span><span class="spirit-price">$7.000</span></div><div class="spirit"><span>Matusalén 15 Años</span><span class="spirit-price">$9.900</span></div><div class="spirit"><span>Havana 15 Años Selección de Maestros</span><span class="spirit-price">$14.000</span></div></div></div><div class="subsection"><h3 class="subhead">Vodka</h3><div class="spirit-grid"><div class="spirit"><span>Absolut Blue</span><span class="spirit-price">$6.000</span></div><div class="spirit"><span>Absolut Citron</span><span class="spirit-price">$7.900</span></div><div class="spirit"><span>Absolut Mango</span><span class="spirit-price">$7.900</span></div><div class="spirit"><span>Absolut Raspberry</span><span class="spirit-price">$7.900</span></div></div></div><div class="subsection"><h3 class="subhead">Gin</h3><div class="spirit-grid"><div class="spirit"><span>Beefeater</span><span class="spirit-price">$7.000</span></div><div class="spirit"><span>Tanqueray</span><span class="spirit-price">$8.000</span></div><div class="spirit"><span>Maugin</span><span class="spirit-price">$8.000</span></div><div class="spirit"><span>Hendricks</span><span class="spirit-price">$15.000</span></div></div></div><div class="subsection"><h3 class="subhead">Tequila (shot)</h3><div class="spirit-grid"><div class="spirit"><span>José Cuervo Blanco</span><span class="spirit-price">$4.900</span></div><div class="spirit"><span>Don Julio Blanco Reserva</span><span class="spirit-price">$6.900</span></div><div class="spirit"><span>Don Julio Reposado</span><span class="spirit-price">$8.900</span></div></div></div><div class="subsection"><h3 class="subhead">Whisky</h3><div class="spirit-grid"><div class="spirit"><span>Chivas Regal 12 Años</span><span class="spirit-price">$7.900</span></div><div class="spirit"><span>Chivas Regal 18 Años</span><span class="spirit-price">$14.000</span></div><div class="spirit"><span>Glenfiddich 15</span><span class="spirit-price">$17.000</span></div><div class="spirit"><span>Jack Daniels Fire</span><span class="spirit-price">$7.900</span></div><div class="spirit"><span>Jack Daniels Honey</span><span class="spirit-price">$7.900</span></div><div class="spirit"><span>Jack Daniels 7</span><span class="spirit-price">$7.900</span></div><div class="spirit"><span>Johnnie Walker Red Label</span><span class="spirit-price">$6.000</span></div><div class="spirit"><span>Johnnie Walker Black Label</span><span class="spirit-price">$8.900</span></div><div class="spirit"><span>Johnnie Walker Doble Black Label</span><span class="spirit-price">$12.900</span></div><div class="spirit"><span>Johnnie Walker Blue Label</span><span class="spirit-price">$37.900</span></div></div></div><div class="subsection"><h3 class="subhead">Otros Licores</h3><div class="spirit-grid"><div class="spirit"><span>Baileys</span><span class="spirit-price">$5.500</span></div><div class="spirit"><span>Fernet</span><span class="spirit-price">$5.000</span></div><div class="spirit"><span>Frangelico</span><span class="spirit-price">$6.500</span></div><div class="spirit"><span>Martini Blanco</span><span class="spirit-price">$4.500</span></div></div></div><div class="subsection"><h3 class="subhead">Espumantes</h3><div class="spirit-grid"><div class="spirit"><span>Viña Mar Brut</span><span class="spirit-price">$15.000</span></div><div class="spirit"><span>Riccadonna Variedades</span><span class="spirit-price">$22.000</span></div><div class="spirit"><span>Copa de Espumante</span><span class="spirit-price">$2.900</span></div></div></div><div class="subsection"><h3 class="subhead">Vinos</h3><div class="varietal"><h4>Cabernet Sauvignon</h4><div class="spirit-grid"><div class="spirit"><span>Casas Patronales Reserva</span><span class="spirit-price">$13.500</span></div><div class="spirit"><span>Toro de Piedra Gran Reserva</span><span class="spirit-price">$18.000</span></div><div class="spirit"><span>Santa Ema Select Terroir Reserve</span><span class="spirit-price">$13.900</span></div><div class="spirit"><span>J. Bouchon Reserva</span><span class="spirit-price">$13.900</span></div><div class="spirit"><span>Casa Real</span><span class="spirit-price">$23.000</span></div></div></div><div class="varietal"><h4>Carmenère</h4><div class="spirit-grid"><div class="spirit"><span>Toro de Piedra Gran Reserva</span><span class="spirit-price">$18.000</span></div><div class="spirit"><span>Santa Ema Gran Reserva</span><span class="spirit-price">$17.900</span></div><div class="spirit"><span>Casas Patronales Reserva</span><span class="spirit-price">$13.500</span></div><div class="spirit"><span>Medalla Real Reserva</span><span class="spirit-price">$12.900</span></div></div></div><div class="varietal"><h4>Merlot</h4><div class="spirit-grid"><div class="spirit"><span>Santa Ema Gran Reserva</span><span class="spirit-price">$17.900</span></div><div class="spirit"><span>Medalla Real Reserva</span><span class="spirit-price">$12.900</span></div></div></div><div class="varietal"><h4>Sauvignon Blanc</h4><div class="spirit-grid"><div class="spirit"><span>Casas del Bosque Reserva</span><span class="spirit-price">$17.000</span></div><div class="spirit"><span>Casas Patronales Reserva</span><span class="spirit-price">$13.500</span></div></div></div><div class="varietal"><h4>Chardonnay</h4><div class="spirit-grid"><div class="spirit"><span>Santa Ema Select Terroir Reserve</span><span class="spirit-price">$13.500</span></div><div class="spirit"><span>Casas del Bosque Reserva Chardonnay</span><span class="spirit-price">$17.000</span></div></div></div><div class="spirit-grid"><div class="spirit"><span>Copa de Vino de la Casa Blanco</span><span class="spirit-price">$3.900</span></div><div class="spirit"><span>Copa de Vino de la Casa Tinto</span><span class="spirit-price">$3.900</span></div></div></div>
+  </section>
+
+  <footer>
+    <span>AutoClub Antofagasta</span><span class="diamond">&#9670;</span><span>Precios incluyen IVA</span>
+  </footer>
+
+</div>
+
+<script>
+(function() {
+  var links = Array.prototype.slice.call(document.querySelectorAll('.nav a'));
+  var sections = links.map(function(l) { return document.getElementById(l.dataset.id); });
+  function setActive(id) {
+    links.forEach(function(l) { l.classList.toggle('active', l.dataset.id === id); });
+  }
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) setActive(e.target.id);
+      });
+    }, { rootMargin: '-90px 0px -70% 0px', threshold: 0 });
+    sections.forEach(function(s) { if (s) io.observe(s); });
+  }
+})();
+</script>
+
+</body>
+</html>
