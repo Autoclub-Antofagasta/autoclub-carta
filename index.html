@@ -153,6 +153,18 @@
     color: var(--muted);
     margin: -8px 0 20px;
   }
+  .age-badge {
+    display: inline-block;
+    background: var(--navy);
+    color: var(--cream);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin: -4px 0 20px;
+  }
 
   /* ---- dish row ---- */
   .dish {
@@ -233,8 +245,6 @@
 
 <div class="nav-wrap">
   <nav class="nav" id="nav">
-    <a href="#desayuno" data-id="desayuno">Desayuno</a>
-    <a href="#cafeteria" data-id="cafeteria">Cafetería</a>
     <a href="#picoteos" data-id="picoteos">Picoteos</a>
     <a href="#sandwiches" data-id="sandwiches">Sándwiches</a>
     <a href="#pizzas" data-id="pizzas">Pizzas</a>
@@ -257,43 +267,6 @@
     <hr>
     <p class="tagline">Carta</p>
   </div>
-
-  <section class="section" id="desayuno">
-    <h2 class="section-head">Desayuno</h2>
-    <p class="section-sub">Hasta las 11 am</p>
-    <hr class="head-rule">
-    <div class="dish">
-  <div class="dish-head"><span class="dish-name">Desayuno Típico</span><span class="dish-price">$4.500</span></div>
-  <p class="desc">Tostadas acompañadas por mantequilla y palta.</p>
-</div><div class="dish">
-  <div class="dish-head"><span class="dish-name">Desayuno Dulce</span><span class="dish-price">$4.200</span></div>
-  <p class="desc">Tostadas con mantequilla de campo y mermelada.</p>
-</div><div class="dish">
-  <div class="dish-head"><span class="dish-name">Desayuno Campestre</span><span class="dish-price">$4.900</span></div>
-  <p class="desc">Tostadas con mantequilla de campo y huevos revueltos (solos, jamón o queso).</p>
-</div><div class="dish">
-  <div class="dish-head"><span class="dish-name">Prensado de Jamón y Queso</span><span class="dish-price">$4.200</span></div>
-  <p class="desc">Pan de molde con jamón y queso prensado.</p>
-</div><div class="dish">
-  <div class="dish-head"><span class="dish-name">Ave Palta</span><span class="dish-price">$4.900</span></div>
-  <p class="desc">Pasta de pollo con palta en pan de molde.</p>
-</div><div class="dish">
-  <div class="dish-head"><span class="dish-name">Media Luna</span><span class="dish-price">$1.200</span></div>
-
-</div><div class="dish">
-  <div class="dish-head"><span class="dish-name">Trozo de Torta</span><span class="dish-price">$4.200</span></div>
-
-</div><div class="dish">
-  <div class="dish-head"><span class="dish-name">Trozo de Cheese Cake</span><span class="dish-price">$3.900</span></div>
-
-</div>
-  </section>
-
-  <section class="section" id="cafeteria">
-    <h2 class="section-head">Cafetería</h2>
-    <hr class="head-rule">
-    <div class="subsection"><h3 class="subhead">Caliente</h3><div class="spirit-grid"><div class="spirit"><span>Ristretto</span><span class="spirit-price">$2.200</span></div><div class="spirit"><span>Espresso</span><span class="spirit-price">$2.200</span></div><div class="spirit"><span>Espresso Lungo</span><span class="spirit-price">$2.200</span></div><div class="spirit"><span>Americano</span><span class="spirit-price">$2.400</span></div><div class="spirit"><span>Macchiato</span><span class="spirit-price">$2.500</span></div><div class="spirit"><span>Cappuccino</span><span class="spirit-price">$2.900</span></div><div class="spirit"><span>Latte</span><span class="spirit-price">$3.600</span></div><div class="spirit"><span>Mocaccino</span><span class="spirit-price">$4.500</span></div><div class="spirit"><span>Chocolate Caliente</span><span class="spirit-price">$4.200</span></div><div class="spirit"><span>Té e Infusiones</span><span class="spirit-price">$2.900</span></div></div></div><div class="subsection"><h3 class="subhead">Fría</h3><div class="spirit-grid"><div class="spirit"><span>Affogato</span><span class="spirit-price">$3.500</span></div><div class="spirit"><span>Americano Iced</span><span class="spirit-price">$3.900</span></div><div class="spirit"><span>Latte Iced</span><span class="spirit-price">$4.600</span></div><div class="spirit"><span>Café Helado</span><span class="spirit-price">$4.900</span></div><div class="spirit"><span>Té Helado</span><span class="spirit-price">$3.500</span></div></div></div>
-  </section>
 
   <section class="section" id="picoteos">
     <h2 class="section-head">Entradas, Tablas y Picoteos</h2>
@@ -559,7 +532,7 @@
   <section class="section" id="ninos">
     <h2 class="section-head">Menú de Niños</h2>
     <hr class="head-rule">
-    <p class="kicker">Hasta 14 años</p><div class="dish">
+    <p class="age-badge">Solo para menores de 14 años</p><div class="dish">
   <div class="dish-head"><span class="dish-name">Spaghettis Alfredo</span><span class="dish-price">$5.500</span></div>
   
 </div><div class="dish">
@@ -613,7 +586,7 @@
   <section class="section" id="bebidas">
     <h2 class="section-head">Bebidas y Refrescos</h2>
     <hr class="head-rule">
-    <div class="subsection"><h3 class="subhead">Bebidas y Jugos</h3><div class="dish">
+    <div class="subsection"><h3 class="subhead">Café Caliente</h3><div class="spirit-grid"><div class="spirit"><span>Ristretto</span><span class="spirit-price">$2.200</span></div><div class="spirit"><span>Espresso</span><span class="spirit-price">$2.200</span></div><div class="spirit"><span>Espresso Lungo</span><span class="spirit-price">$2.200</span></div><div class="spirit"><span>Americano</span><span class="spirit-price">$2.400</span></div><div class="spirit"><span>Macchiato</span><span class="spirit-price">$2.500</span></div><div class="spirit"><span>Cappuccino</span><span class="spirit-price">$2.900</span></div><div class="spirit"><span>Latte</span><span class="spirit-price">$3.600</span></div><div class="spirit"><span>Mocaccino</span><span class="spirit-price">$4.500</span></div><div class="spirit"><span>Chocolate Caliente</span><span class="spirit-price">$4.200</span></div><div class="spirit"><span>Té e Infusiones</span><span class="spirit-price">$2.900</span></div></div></div><div class="subsection"><h3 class="subhead">Café Frío</h3><div class="spirit-grid"><div class="spirit"><span>Affogato</span><span class="spirit-price">$3.500</span></div><div class="spirit"><span>Americano Iced</span><span class="spirit-price">$3.900</span></div><div class="spirit"><span>Latte Iced</span><span class="spirit-price">$4.600</span></div><div class="spirit"><span>Café Helado</span><span class="spirit-price">$4.900</span></div><div class="spirit"><span>Té Helado</span><span class="spirit-price">$3.500</span></div></div></div><div class="subsection"><h3 class="subhead">Bebidas y Jugos</h3><div class="dish">
   <div class="dish-head"><span class="dish-name">Bebida</span><span class="dish-price">$1.500</span></div>
   
 </div><div class="dish">
@@ -690,7 +663,7 @@
   <div class="dish-head"><span class="dish-name">Mango Sour</span><span class="dish-price">$4.200</span></div>
   <p class="desc">Cóctel de pisco en base de mango, jarabe de goma y clara de huevo, más el hielo para refrescar lo mejor de lo mejor.</p>
 </div><div class="dish">
-  <div class="dish-head"><span class="dish-name">Aperol Spritz</span><span class="dish-price">$8.900</span></div>
+  <div class="dish-head"><span class="dish-name">Aperol Spritz</span><span class="dish-price">$6.900</span></div>
   <p class="desc">Aperol, espumante y agua mineral.</p>
 </div><div class="dish">
   <div class="dish-head"><span class="dish-name">Maracuyá Sour</span><span class="dish-price">$3.900</span></div>
